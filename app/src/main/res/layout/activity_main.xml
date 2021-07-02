@@ -11,5 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="191dp"
+        android:dividerHeight="10.0sp"
         tools:layout_editor_absoluteY="317dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
