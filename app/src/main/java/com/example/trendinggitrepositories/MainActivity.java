@@ -1,5 +1,6 @@
 package com.example.trendinggitrepositories;
 
+import android.app.ProgressDialog;
 import android.view.Menu;
 
 import android.view.MenuItem;
@@ -12,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -32,11 +36,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
+    SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     SearchView searchView;
     LinearLayoutManager linearLayoutManager;
     TextView tv;
     Adapter adapter;
+    ProgressBar progressBar;
     List<Data> list;
     private RequestQueue mRequestQueue;
     private String url = "https://private-anon-53bc32ce93-githubtrendingapi.apiary-mock.com/repositories";
@@ -45,9 +51,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        swipeRefreshLayout=findViewById(R.id.Mainactivity_swipeRefresh);
+         progressBar=findViewById(R.id.Mainactivity_ProgressBar);
         list = new ArrayList<>();
         jsonParse();
 
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pulldown();
+            }
+        });
 
     }
 
@@ -73,9 +88,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void jsonParse() {
+        progressBar.setVisibility(View.VISIBLE);
         mRequestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest movieReq = new JsonArrayRequest(url, response -> {
+                     list.clear();
 
             for (int i = 0; i < response.length(); i++) {
 
@@ -90,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     adapter = new Adapter(list);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.INVISIBLE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -102,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
         mRequestQueue.add(movieReq);
     }
+    public void pulldown()
+    {
+        adapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
 
 
 }
