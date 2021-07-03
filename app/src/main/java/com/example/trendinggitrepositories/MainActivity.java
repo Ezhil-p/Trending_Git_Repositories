@@ -1,6 +1,10 @@
 package com.example.trendinggitrepositories;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.Menu;
 
 import android.view.MenuItem;
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         swipeRefreshLayout=findViewById(R.id.Mainactivity_swipeRefresh);
          progressBar=findViewById(R.id.Mainactivity_ProgressBar);
+         checkConnection();
         list = new ArrayList<>();
         jsonParse();
 
@@ -88,12 +93,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void jsonParse() {
+
         progressBar.setVisibility(View.VISIBLE);
         mRequestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest movieReq = new JsonArrayRequest(url, response -> {
                      list.clear();
-
+                    checkConnection();
             for (int i = 0; i < response.length(); i++) {
 
                 try {
@@ -126,7 +132,18 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(false);
     }
 
+public void checkConnection() {
 
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (null == networkInfo) {
+            Intent intent = new Intent(MainActivity.this, NoNetwork.class);
+            startActivity(intent);
+
+
+    }
+
+}
 
 }
 
