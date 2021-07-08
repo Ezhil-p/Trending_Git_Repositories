@@ -89,28 +89,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.menu_search);
-         searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Type here to Search");
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
 
     private void jsonParse() {
 
@@ -145,6 +124,30 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
             }
             }, error -> VolleyLog.d(TAG, "Error: " + error.getMessage()));
         mRequestQueue.add(mReq);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_search);
+        searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type here to Search");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void pulldown() {
