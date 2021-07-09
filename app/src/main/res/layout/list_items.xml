@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="15dp"
+
+    android:clipToPadding="true"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:background="#FFFFFF"
+
+        android:dividerHeight="10.0sp">
+
+        <TextView
+            android:id="@+id/list_item_name"
+            android:textStyle="bold"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Name"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:id="@+id/list_item_desc"
+            android:layout_width="353dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:text="This place is to have the description of the application"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:id="@+id/list_item_language"
+            android:layout_width="120dp"
+            android:layout_height="20dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="70dp"
+
+            android:text="Language"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/list_item_stars"
+            android:textStyle="bold"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="70dp"
+            android:text="Stars"
+            android:textColor="@color/black"
+
+            />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_marginLeft="272dp"
+            android:layout_marginTop="66dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_star"
+            tools:ignore="VectorDrawableCompat" />
+
+      <ImageView
+            android:id="@+id/list_item_languagecolor"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="65dp"
+            app:srcCompat="@drawable/ic_languagecolor"
+            tools:ignore="VectorDrawableCompat" />
+
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
